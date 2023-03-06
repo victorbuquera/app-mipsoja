@@ -2,24 +2,8 @@ import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {useNavigation} from '@react-navigation/native';
-//import AsyncStorage from '@react-native-async-storage/async-storage';
-//import store from '../../commom/reducers/store';
-
 export default function Welcome() {
   const navigation = useNavigation();
-
- /* useEffect(() => {
-    const checkToken = async () => {
-      const token = await AsyncStorage.getItem('token');
-      if (token !== null) {
-        store.dispatch({type: 'LOGIN', loggedIn: true});
-      } else {
-        store.dispatch({type: 'LOGOUT', loggedIn: false});
-      }
-    };
-    checkToken();
-  }, []);
-*/
   return (
     <View style={styles.container}>
       <View style={styles.containerLogo}>

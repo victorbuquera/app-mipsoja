@@ -1,17 +1,17 @@
-import React from 'react';
-import {useState, useEffect} from 'react';
+import React from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
   StyleSheet,
-} from 'react-native';
+} from "react-native";
 
-import * as Animatable from 'react-native-animatable';
-import {useNavigation} from '@react-navigation/native';
-import {SignUp} from '../../commom/auth';
-import { ScrollView } from 'react-native-gesture-handler';
+import * as Animatable from "react-native-animatable";
+import { useNavigation } from "@react-navigation/native";
+import { SignUp } from "../../commom/auth";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function RegisterScreen() {
   const navigation = useNavigation();
@@ -28,9 +28,8 @@ export default function RegisterScreen() {
   const [finalidadeUso, setFinalidadeUso] = useState(null);
   const [passwordError, setPasswordError] = useState(false);
 
-
   useEffect(() => {
-    if (password !== password_confirmation && password_confirmation !== '') {
+    if (password !== password_confirmation && password_confirmation !== "") {
       setPasswordError(true);
     } else {
       setPasswordError(false);
@@ -38,44 +37,44 @@ export default function RegisterScreen() {
   }, [password, password_confirmation, passwordError]);
 
   async function handleRegister() {
-  try {
-    const response = await SignUp.Register(
-      nome,
-      sobreNome,
-      email,
-      cel,
-      password,
-      password_confirmation,
-      cidade,
-      estado,
-      profissao,
-      comoConheceuApp,
-      finalidadeUso,
-    );
-    alert(JSON.stringfy(response));
-    if (response) {
-      alert(JSON.stringify(response));
-      // Dispara a ação de login
-      //dispatch({type: 'LOGIN', user: {email: email, token: response.token}});
-    }else{
-      alert(JSON.stringify(response.message));
-    }
-  } catch (error) {
-    // Trata o erro de conexão aqui
-    if (error.message === 'Network Error') {
-      alert('Erro de conexão');
+    try {
+      const response = await SignUp.Register(
+        nome,
+        sobreNome,
+        email,
+        cel,
+        password,
+        password_confirmation,
+        cidade,
+        estado,
+        profissao,
+        comoConheceuApp,
+        finalidadeUso
+      );
+      alert(JSON.stringfy(response));
+      if (response) {
+        alert(JSON.stringify(response));
+        // Dispara a ação de login
+        //dispatch({type: 'LOGIN', user: {email: email, token: response.token}});
+      } else {
+        alert(JSON.stringify(response.message));
+      }
+    } catch (error) {
+      // Trata o erro de conexão aqui
+      if (error.message === "Network Error") {
+        alert("Erro de conexão");
+        throw error;
+      }
       throw error;
     }
-    throw error;
-  }
   }
 
   return (
-    //Considerar separar o cadastro em mais de uma página 
+    //Considerar separar o cadastro em mais de uma página
     <View style={styles.container}>
-        <Animatable.View style={styles.containerHeader}>
+      <Animatable.View style={styles.containerHeader}>
         <Text style={styles.message}>Cadastre-se</Text>
-        </Animatable.View>
+      </Animatable.View>
 
       <ScrollView>
         <Animatable.View animation="fadeInUp" style={styles.containerForm}>
@@ -120,14 +119,16 @@ export default function RegisterScreen() {
             value={password}
           />
 
-          <Animatable.View animation={passwordError ? 'shake' : undefined}>
+          <Animatable.View animation={passwordError ? "shake" : undefined}>
             <Text style={styles.title}>Confirme sua senha *</Text>
             <TextInput
               placeholder="Confirme sua senha"
               secureTextEntry
               style={[
                 styles.input,
-                passwordError ? {borderColor: 'red'} : {borderColor: '#ccc'},
+                passwordError
+                  ? { borderColor: "red" }
+                  : { borderColor: "#ccc" },
               ]}
               onChangeText={setPasswordConfirmation}
               value={password_confirmation}
@@ -150,18 +151,18 @@ export default function RegisterScreen() {
             value={estado}
           />
 
-        <Text style={styles.title}>Profissão *</Text>
+          <Text style={styles.title}>Profissão *</Text>
           <TextInput
-          //Colocar um seletor com opções pré definidas para padronização no banco de dados
+            //Colocar um seletor com opções pré definidas para padronização no banco de dados
             placeholder="Digite sua profissão"
             style={styles.input}
             onChangeText={setProfissao}
             value={profissao}
           />
-          
+
           <Text style={styles.title}>Como você conheceu o aplicativo?</Text>
           <TextInput
-          //Colocar um seletor com opções pré definidas para padronização no banco de dados
+            //Colocar um seletor com opções pré definidas para padronização no banco de dados
             placeholder="recomendação da firma, amigos, instagram etc"
             style={styles.input}
             onChangeText={setComoConheceuApp}
@@ -169,7 +170,7 @@ export default function RegisterScreen() {
           />
           <Text style={styles.title}>Qual a finalidade do uso?</Text>
           <TextInput
-          //Colocar um seletor com opções pré definidas para padronização no banco de dados
+            //Colocar um seletor com opções pré definidas para padronização no banco de dados
             placeholder="Selecione finalidade do uso"
             style={styles.input}
             onChangeText={setFinalidadeUso}
@@ -177,15 +178,18 @@ export default function RegisterScreen() {
           />
         </Animatable.View>
       </ScrollView>
-      <View >
-      <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText} onPress={handleRegister}>Cadastrar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.buttonRegister}
-            onPress={() => navigation.navigate('signIn')}>
-            <Text style={styles.registerText}>Voltar para tela de login</Text>
-          </TouchableOpacity>
+      <View>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText} onPress={handleRegister}>
+            Cadastrar
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonRegister}
+          onPress={() => navigation.navigate("signIn")}
+        >
+          <Text style={styles.registerText}>Voltar para tela de login</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -194,28 +198,28 @@ export default function RegisterScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1c874a',
+    backgroundColor: "#1c874a",
     borderRadius: 4,
   },
   containerHeader: {
-    marginTop: '5%',
-    marginBottom: '5%',
-    paddingStart: '5%',
+    marginTop: "5%",
+    marginBottom: "5%",
+    paddingStart: "5%",
   },
   message: {
     fontSize: 28,
     marginTop: 25,
     marginBottom: -10,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontWeight: "bold",
+    color: "#fff",
   },
   containerForm: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     flex: 1,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    paddingStart: '5%',
-    paddingEnd: '5%',
+    paddingStart: "5%",
+    paddingEnd: "5%",
   },
   title: {
     fontSize: 18,
@@ -231,32 +235,32 @@ const styles = StyleSheet.create({
     marginLeft: 3,
   },*/
   input: {
-    width: '100%',
+    width: "100%",
     borderBottomWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     padding: 10,
     marginBottom: 5,
   },
   button: {
-    backgroundColor: '#27ae61',
-    width: '100%',
+    backgroundColor: "#27ae61",
+    width: "100%",
     borderRadius: 4,
     paddingVertical: 8,
     marginTop: 14,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonText: {
-    color: '#FFF',
+    color: "#FFF",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   buttonRegister: {
     marginTop: 14,
-    alignSelf: 'center',
-    marginBottom: 7
+    alignSelf: "center",
+    marginBottom: 7,
   },
   registerText: {
-    color: '#fff',
+    color: "#fff",
   },
 });

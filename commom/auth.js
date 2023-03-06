@@ -1,14 +1,15 @@
 import axios from 'axios';
 import { SecureStore } from 'expo-secure-store';
 
-//IP PARA CONEXÂO INTRANET:
+//LINUX - IP PARA CONEXÂO INTRANET:
   //-ifconfig | grep inet
   //inet 192.168.0.***
+//Windows wifi: cmd>ipconfig> Adaptador de Rede sem Fio Wi-Fi > Endereço IPv4
 //IP PARA CONEXÂO VIA EMULADOR ANDROID STUDIO http://10.0.3.2
 const Login = {
   async auth(email, password) {
     try {
-      const response = await axios.post('http://192.168.0.107/api/login', {
+      const response = await axios.post('http://192.168.89.254/api/login', {
         email,
         password,
       });
