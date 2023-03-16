@@ -1,11 +1,9 @@
 import React from "react";
-import { StyleSheet } from "react-native-web";
-import { createStackNavigator } from "@react-navigation/stack";
 import Main from "../screens/AppStack/main";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import MapIcon from "../components/icon/map"
+import MapIcon from "../components/icon/map";
+
 const Tab = createBottomTabNavigator();
 
 export default function AppStack() {
@@ -14,22 +12,23 @@ export default function AppStack() {
       initialRouteName="mapa"
       screenOptions={{
         tabBarStyle: {
-          position: 'absolute',
-          backgroundColor:'#FFB534',
-        }
+          height: 70,
+          backgroundColor: "#FFB534",
+        },
       }}
     >
       <Tab.Screen
         name="fazendas"
         component={Main}
         options={{
+          headerShown: false,
           tabBarLabel: "Fazendas",
+          tabBarLabelStyle: {
+            color: "#000000",
+            fontSize: 12,
+          },
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="barn"
-              color={color}
-              size={26}
-            />
+            <MaterialCommunityIcons name="barn" color={"#000000"} size={60} />
           ),
         }}
       />
@@ -37,12 +36,16 @@ export default function AppStack() {
         name="Relatorios"
         component={Main}
         options={{
-          tabBarLabel: "Fazendas",
+          headerShown: false,
+          tabBarLabel: "Relatórios",
+          tabBarLabelStyle: {
+            color: "#000000",
+          },
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="file-document"
-              color={color}
-              size={26}
+              color={"#000000"}
+              size={60}
             />
           ),
         }}
@@ -51,22 +54,30 @@ export default function AppStack() {
         name="mapa"
         component={Main}
         options={{
-          tabBarIcon: ({focused}) => (
+          headerShown: false,
+          tabBarLabel: " ",
+          tabBarLabelStyle: {
+            color: "#000000",
+          },
+          tabBarIcon: ({ focused }) => (
             <MapIcon
               focused={focused}
               source={require("../imgs/location.png")}
             />
           ),
-        }
-      }
+        }}
       />
       <Tab.Screen
         name="camera"
         component={Main}
         options={{
+          headerShown: false,
           tabBarLabel: "Camera",
+          tabBarLabelStyle: {
+            color: "#000000",
+          },
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="camera" color={color} size={26} />
+            <MaterialCommunityIcons name="camera" color={"#000000"} size={60} />
           ),
         }}
       />
@@ -74,17 +85,16 @@ export default function AppStack() {
         name="pesquisar"
         component={Main}
         options={{
+          headerShown: false,
           tabBarLabel: "Pesquisar",
+          tabBarLabelStyle: {
+            color: "#000000",
+          },
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="home-search"
-              color={color}
-              size={26}
-            />
+            <MaterialCommunityIcons name="home-search" size={60} />
           ),
         }}
       />
     </Tab.Navigator>
   );
 }
-

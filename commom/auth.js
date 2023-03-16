@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { SecureStore } from 'expo-secure-store';
 
 //LINUX - IP PARA CONEXÂO INTRANET:
   //-ifconfig | grep inet
@@ -9,7 +8,7 @@ import { SecureStore } from 'expo-secure-store';
 const Login = {
   async auth(email, password) {
     try {
-      const response = await axios.post('http://192.168.89.254/api/login', {
+      const response = await axios.post('http://192.168.0.104/api/login', {
         email,
         password,
       });
@@ -24,7 +23,7 @@ const Login = {
 const SignUp = {
   async Register(nome, sobreNome, email, cel, password, password_confirmation, cidade, estado, profissao, comoConheceuApp, finalidadeUso) {
     try {
-      const response = await axios.post('http://192.168.0.102/api/register', {
+      const response = await axios.post('http://192.168.0.104/api/register', {
         nome,
         sobreNome,
         email,

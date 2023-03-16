@@ -6,7 +6,7 @@ const MapIcon = ({ focused, source, style }) => {
     <View style={[{ flexDirection: 'row' }, style]}>
       <Image
         source={source}
-        style={{ width: 80, height: 80, marginBottom: 25 }}
+        style={{ width: 90, height: 90, marginBottom: 45,alignContent:'center', alignItems:'center' }}
       />
     </View>
   );

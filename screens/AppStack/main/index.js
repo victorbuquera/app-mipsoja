@@ -29,6 +29,7 @@ export default function Main() {
       <View style={styles.container}>
         <MapView
           style={styles.map}
+          mapType='satellite'
           initialRegion={{
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,

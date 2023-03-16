@@ -10,7 +10,7 @@ import {
 
 import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
-import { SignUp } from "../../commom/auth";
+import { SignUp } from "../../../commom/auth";
 import { ScrollView } from "react-native-gesture-handler";
 
 export default function RegisterScreen() {
