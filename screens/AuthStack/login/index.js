@@ -25,12 +25,13 @@ const storeData = async (token, dispatch) => {
   }
 };
 
-async function handleAccess(email, password, dispatch, setIsLoggedIn) {
+async function handleAccess(email, password, dispatch,isLoggedIn, setIsLoggedIn) {
   try {
     const response = await Login.auth(email, password);
     if (response.token) {
       storeData(response.token, dispatch);
       setIsLoggedIn(true);
+      console.log("isLoggedIn: ", isLoggedIn); 
       alert(response.token);
     } else {
       alert(JSON.stringify(response.message));
@@ -76,7 +77,7 @@ export default function SignIn() {
         />
         <TouchableOpacity
           style={styles.button}
-          onPress={() => handleAccess(email, password, dispatch, setIsLoggedIn)}
+          onPress={() => handleAccess(email, password, dispatch,isLoggedIn, setIsLoggedIn)}
         >
           <Text style={styles.buttonText}>Acessar</Text>
         </TouchableOpacity>
