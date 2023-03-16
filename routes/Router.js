@@ -6,10 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { setToken } from "../commom/authSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
 export default function Router() {
   const dispatch = useDispatch();
-  const loggedIn = useSelector((state) => state.auth.isAuthenticated);
+  const loggedIn = useSelector((state) => state.auth.loggedIn);
 
   useEffect(() => {
     const checkLoggedIn = async () => {
