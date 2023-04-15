@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-
+import { ActivityIndicator } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
 import { SignUp } from "../../../commom/auth";
@@ -38,6 +38,7 @@ export default function RegisterScreen() {
 
   async function handleRegister() {
     try {
+      console.log('teste')
       const response = await SignUp.Register(
         nome,
         sobreNome,
@@ -54,8 +55,6 @@ export default function RegisterScreen() {
       alert(JSON.stringfy(response));
       if (response) {
         alert(JSON.stringify(response));
-        // Dispara a ação de login
-        //dispatch({type: 'LOGIN', user: {email: email, token: response.token}});
       } else {
         alert(JSON.stringify(response.message));
       }
@@ -180,9 +179,9 @@ export default function RegisterScreen() {
       </ScrollView>
       <View>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText} onPress={handleRegister}>
-            Cadastrar
-          </Text>
+            <Text style={styles.buttonText} onPress={handleRegister}>
+              Cadastrar
+            </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonRegister}

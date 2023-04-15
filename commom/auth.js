@@ -8,7 +8,7 @@ import axios from 'axios';
 const Login = {
   async auth(email, password) {
     try {
-      const response = await axios.post('http://192.168.0.104/api/login', {
+      const response = await axios.post('http://192.168.0.109/api/login', {
         email,
         password,
       });
@@ -23,7 +23,7 @@ const Login = {
 const SignUp = {
   async Register(nome, sobreNome, email, cel, password, password_confirmation, cidade, estado, profissao, comoConheceuApp, finalidadeUso) {
     try {
-      const response = await axios.post('http://192.168.0.104/api/register', {
+      const response = await axios.post('http://192.168.0.109/api/register', {
         nome,
         sobreNome,
         email,
@@ -36,6 +36,7 @@ const SignUp = {
         comoConheceuApp,
         finalidadeUso
       });
+      console.log('teste')
       return response.data;
     } catch (error) {
       throw error;

@@ -12,52 +12,55 @@ import { Login } from "../../../commom/auth";
 import { useDispatch } from "react-redux";
 import { setToken } from "../../../commom/authSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ActivityIndicator } from "react-native";
 
-const storeData = async (token, dispatch) => {
-  try {
-    if (token !== null && token !== undefined) {
-      const tokenString = JSON.stringify(token);
-      await AsyncStorage.setItem("token", tokenString);
-      dispatch(setToken(token));
-    }
-  } catch (error) {
-    throw error;
-  }
-};
-
-async function handleAccess(
-  email,
-  password,
-  dispatch,
-  isLoggedIn,
-  setIsLoggedIn
-) {
-  try {
-    const response = await Login.auth(email, password);
-    if (response.token) {
-      storeData(response.token, dispatch);
-      setIsLoggedIn(true);
-      console.log("isLoggedIn: ", isLoggedIn);
-      alert(response.token);
-    } else {
-      alert(JSON.stringify(response.message));
-    }
-  } catch (error) {
-    // Trata o erro de conexão aqui
-    if (error.message === "Network Error") {
-      alert("Erro de conexão");
-    } else {
-      throw error;
-    }
-  }
-}
 
 export default function SignIn() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // adiciona a variável de estado
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+
+  const storeData = async (token, dispatch) => {
+    try {
+      if (token !== null && token !== undefined) {
+        const tokenString = JSON.stringify(token);
+        await AsyncStorage.setItem("token", tokenString);
+        dispatch(setToken(token));
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const handleAccess = async (
+    email,
+    password,
+    dispatch,
+    setIsLoggedIn,
+    setIsLoading
+  ) => {
+    setIsLoading(true);
+    try {
+      const response = await Login.auth(email, password);
+      if (response.token) {
+        storeData(response.token, dispatch);
+        setIsLoggedIn(true);
+        console.log("isLoggedIn: ", isLoggedIn);
+      } else {
+        alert(JSON.stringify(response.message).replace(/['"]+/g, ""));
+      }
+    } catch (error) {
+      if (error.message === "Network Error") {
+        alert("Erro de conexão");
+      } else {
+        throw error;
+      }
+    }
+    setIsLoading(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -84,10 +87,14 @@ export default function SignIn() {
         <TouchableOpacity
           style={styles.button}
           onPress={() =>
-            handleAccess(email, password, dispatch, isLoggedIn, setIsLoggedIn)
+            handleAccess(email, password, dispatch, setIsLoggedIn, setIsLoading)
           }
         >
-          <Text style={styles.buttonText}>Acessar</Text>
+          {isLoading ? (
+            <ActivityIndicator size="small" color="#fff" />
+          ) : (
+            <Text style={styles.buttonText}>Acessar</Text>
+          )}
         </TouchableOpacity>
 
         <TouchableOpacity

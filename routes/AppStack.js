@@ -1,10 +1,31 @@
 import React from "react";
 import Main from "../screens/AppStack/main";
+import CadastroFazenda from "../screens/AppStack/fazendas/fazendaCadastro";
+import fazendaExibicao from "../screens/AppStack/fazendas/fazendaExibicao";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MapIcon from "../components/icon/map";
-
+import { createStackNavigator } from "@react-navigation/stack";
 const Tab = createBottomTabNavigator();
+const FazendaStack = createStackNavigator();
+
+function FazendaStackScreen() {
+  return (
+    <FazendaStack.Navigator>
+      <FazendaStack.Screen
+        name="Fazenda"
+        component={fazendaExibicao}
+        options={{ headerShown: false, headerTitle: null }}
+      />
+      <FazendaStack.Screen
+        name="CadastroFazenda"
+        component={CadastroFazenda}
+        options={{ headerShown: false }}
+      />
+    </FazendaStack.Navigator>
+  );
+}
+
 
 export default function AppStack() {
   return (
@@ -17,21 +38,22 @@ export default function AppStack() {
         },
       }}
     >
+    
       <Tab.Screen
-        name="fazendas"
-        component={Main}
-        options={{
-          headerShown: false,
-          tabBarLabel: "Fazendas",
-          tabBarLabelStyle: {
-            color: "#000000",
-            fontSize: 12,
-          },
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="barn" color={"#000000"} size={60} />
-          ),
-        }}
-      />
+       name="Fazendas"
+       component={FazendaStackScreen}
+       options={{
+        headerShown: false,
+         tabBarLabel: "Fazendas",
+         tabBarLabelStyle: {
+           color: "#000000",
+           fontSize: 12,
+         },
+         tabBarIcon: ({ color }) => (
+           <MaterialCommunityIcons name="barn" color={"#000000"} size={60} />
+         ),
+       }}
+     />
       <Tab.Screen
         name="Relatorios"
         component={Main}
